@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Şömine Restaurant Menu</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@400;500;600;700&display=swap');
+
+        :root {
+            --bg: #040404;
+            --bg-soft: #101010;
+            --panel: #121212;
+            --panel-2: #181818;
+            --text: #ffffff;
+            --muted: #d3c9bf;
+            --line: rgba(255, 145, 56, 0.2);
+            --orange: #ff7a1a;
+            --orange-soft: #ffb36a;
+            --red: #ef4b32;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background:
+                radial-gradient(circle at top, rgba(255, 122, 26, 0.1), transparent 28%),
+                linear-gradient(180deg, #0b0b0b 0%, #040404 100%);
+            color: var(--text);
+            line-height: 1.55;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 6%;
+            background: rgba(4, 4, 4, 0.92);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--line);
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Cinzel', serif;
+        }
+
+        .logo-lockup {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        .nav-logo {
+            width: 180px;
+            max-width: 42vw;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 1.25rem;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        nav a {
+            color: rgba(255, 255, 255, 0.88);
+            font-size: 0.95rem;
+        }
+
+        nav a:hover,
+        nav a:focus-visible {
+            color: var(--orange-soft);
+        }
+
+        header {
+            padding: 5.5rem 6% 3rem;
+            text-align: center;
+        }
+
+        .hero-shell {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+            border: 1px solid var(--line);
+            border-radius: 28px;
+            background:
+                linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02)),
+                linear-gradient(135deg, rgba(255, 122, 26, 0.08), transparent 40%);
+        }
+
+        .eyebrow {
+            display: inline-block;
+            margin-bottom: 1rem;
+            padding: 0.45rem 0.85rem;
+            border: 1px solid rgba(255, 179, 106, 0.28);
+            border-radius: 999px;
+            color: var(--orange-soft);
+            font-size: 0.78rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+        }
+
+        .hero-logo {
+            width: min(440px, 82vw);
+            margin: 0 auto;
+        }
+
+        .hero-sub {
+            margin-top: 0.6rem;
+            color: var(--orange-soft);
+            font-size: 1.05rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .hero-copy {
+            max-width: 760px;
+            margin: 1.25rem auto 0;
+            color: var(--muted);
+        }
+
+        section {
+            padding: 0 6% 3rem;
+        }
+
+        .section-head {
+            max-width: 1180px;
+            margin: 0 auto 1.5rem;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: clamp(2rem, 4.5vw, 3rem);
+            color: #fff5ea;
+            margin-bottom: 0.65rem;
+        }
+
+        .section-head p {
+            color: var(--muted);
+            max-width: 760px;
+            margin: 0 auto;
+        }
+
+        .layout {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1.25rem;
+            align-items: start;
+        }
+
+        .column {
+            display: grid;
+            gap: 1.25rem;
+        }
+
+        .card {
+            background: linear-gradient(180deg, var(--panel-2), var(--panel));
+            border: 1px solid var(--line);
+            border-radius: 22px;
+            overflow: hidden;
+        }
+
+        .card-title {
+            padding: 1rem 1.1rem;
+            background: linear-gradient(90deg, rgba(239, 75, 50, 0.95), rgba(255, 122, 26, 0.95));
+            color: white;
+        }
+
+        .card-title h3 {
+            font-size: 1.2rem;
+            line-height: 1.2;
+        }
+
+        .card-title .sub {
+            margin-top: 0.25rem;
+            font-size: 0.88rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 600;
+        }
+
+        .items {
+            padding: 0.35rem 0;
+        }
+
+        .menu-item {
+            padding: 1rem 1.1rem;
+            border-bottom: 1px solid rgba(255, 179, 106, 0.1);
+        }
+
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+
+        .item-top {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            align-items: baseline;
+            margin-bottom: 0.25rem;
+        }
+
+        .item-name {
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        .item-price {
+            color: var(--orange-soft);
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .item-desc {
+            color: var(--muted);
+            font-size: 0.94rem;
+        }
+
+        .notice,
+        .contact-card {
+            padding: 1.15rem;
+        }
+
+        .notice p,
+        .contact-card p,
+        .contact-card li {
+            color: var(--muted);
+        }
+
+        .notice strong,
+        .contact-card strong {
+            color: #ffffff;
+        }
+
+        .highlight-box {
+            margin-top: 0.8rem;
+            padding: 1rem;
+            border-radius: 16px;
+            background: linear-gradient(180deg, rgba(239, 75, 50, 0.95), rgba(255, 122, 26, 0.88));
+            color: white;
+        }
+
+        .highlight-box p {
+            color: white;
+        }
+
+        .contact-card ul {
+            list-style: none;
+        }
+
+        .contact-card li + li,
+        .contact-card p + p {
+            margin-top: 0.45rem;
+        }
+
+        .contact-section {
+            padding-top: 0;
+        }
+
+        .contact-wrap {
+            max-width: 980px;
+            margin: 0 auto;
+        }
+
+        .footer-mark {
+            text-align: center;
+            padding: 0 6% 3rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .footer-logo {
+            width: min(260px, 70vw);
+            margin: 0 auto;
+            display: block;
+        }
+
+        @media (max-width: 1024px) {
+            .layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 720px) {
+            nav {
+                padding: 0.95rem 5%;
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+
+            header,
+            section,
+            .footer-mark {
+                padding-left: 5%;
+                padding-right: 5%;
+            }
+
+            .hero-shell {
+                padding: 2.3rem 1rem;
+            }
+
+            .item-top {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <img class="logo-lockup nav-logo" src="./logo.png" alt="Şömine Restaurant logo">
+        <ul>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#details">Contact</a></li>
+        </ul>
+    </nav>
+
+    <header>
+        <div class="hero-shell">
+            <div class="eyebrow">Fireplace Restaurant</div>
+            <img class="logo-lockup hero-logo" src="./logo.png" alt="Şömine Restaurant logo">
+            <p class="hero-copy">
+                Authentic Turkish menu presented in a black and orange fireplace-inspired design, with the menu details taken directly from the provided Somine menu.
+            </p>
+        </div>
+    </header>
+
+    <section id="menu">
+        <div class="section-head">
+            <h2>Menu</h2>
+            <p>V indicates vegetarian items where shown on the menu.</p>
+        </div>
+
+        <div class="layout">
+            <div class="column">
+                <div class="card">
+                    <div class="card-title">
+                        <h3>Breakfast-Kahvaltı</h3>
+                    </div>
+                    <div class="items">
+                        <div class="menu-item">
+                            <div class="item-top">
+                                <div class="item-name">1. TURKISH BREAKFAST</div>
+                                <div class="item-price">14.00</div>
+                            </div>
+                            <div class="item-desc">Full Turkish breakfast; butter, feta cheese, olives, scrambled egg, honey, 2 pieces of filo pastry, jam, fresh tomatoes, cucumber &amp; Turkish sausage served with tea or coffee</div>
+                        </div>
+                        <div class="menu-item">
+                            <div class="item-top">
+                                <div class="item-name">2. MENEMEN (V) (Contains Egg)</div>
+                                <div class="item-price">13.00</div>
+                            </div>
+                            <div class="item-desc">Tomatoes with scrambled eggs, fresh green pepper &amp; onion. (Cooking time 20 minutes)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">
+                        <h3>Soups-Çorbalar</h3>
+                        <div class="sub">All served with pickles and bread</div>
+                    </div>
+                    <div class="items">
+                        <div class="menu-item">
+                            <div class="item-top"><div class="item-name">3. LENTIL SOUP - MERCIMEK (V)</div><div class="item-price">8.00</div></div>
+                        </div>
+                        <div class="menu-item">
+                            <div class="item-top"><div class="item-name">4. CHICKEN SOUP - TAVUK</div><div class="item-price">8.00</div></div>
+                        </div>
+                        <div class="menu-item">
+                            <div class="item-top"><div class="item-name">5. YOGHURT SOUP - YAYLA (V)</div><div class="item-price">8.00</div></div>
+                            <div class="item-desc">Yoghurt soup with rice (Contains Egg)</div>
+                        </div>
+                        <div class="menu-item">
+                            <div class="item-top"><div class="item-name">6. LAMB SOUP - PAÇA</div><div class="item-price">9.00</div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">
+                        <h3>Daily Stews-Günlük Yemekler</h3>
+                    </div>
+                    <div class="notice">
+                        <p>Daily we serve 4 different fresh stews, including a vegetarian option. Please ask one of our friendly staff for the stews available on the day.</p>
+                        <div class="highlight-box">
+                            <p>DAILY STEW <strong>12.50</strong></p>
+                            <p>DAILY STEW WITH RICE <strong>14.50</strong></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">
+                        <h3>Cold Starters-Soğuk Mezeler</h3>
+                    </div>
+                    <div class="items">
+                        <div class="menu-item">
+                            <div class="item-top"><div class="item-name">7. HUMUS (V)</div><div class="item-price">5.80</div></div>
+                            <div class="item-desc">Pureed chickpeas with tahini mixed with touch of garlic</div>
+                        </div>
+                        <div class="menu-item">
+                            <div class="item-top"><div class="item-name">8. CACIK (V)</div><div class="item-price">5.80</div></div>
+                            <div class="item-desc">Cucumber with hint of garlic mixed with fresh yoghurt &amp; dry mint dressing</div>
+                        </div>
+                        <div class="menu-item">
+                            <div class="item-top"><div class="item-name">9. SPINACH TARATOR (V)</div><div class="item-price">5.80</div></div>
+                            <div class="item-desc">Spinach mixed with yogurt &amp; a hint of garlic</div>
+                        </div>
+                        <div class="menu-item">
+                            <div class="item-top"><div class="item-name">10. TARAMA</div><div class="item-price">5.80</div></div>
+                            <div class="item-desc">Creamy smooth paste made with fish roe</div>
+                        </div>
+                        <div class="menu-item">
+                            <div class="item-top"><div class="item-name">11. ACILI EZME (V)</div><div class="item-price">5.80</div></div>
+                            <div class="item-desc">Finely chopped tomatoes, onions, hot green pepper, hint of garlic, parsley, olive oil &amp; lemon juice</div>
+                        </div>
+                        <div class="menu-item">
+                            <div class="item-top"><div class="item-name">12. SAKSUKA (V)</div><div class="item-price">5.80</div></div>
+                            <div class="item-desc">Fried aubergines with tomato sauce, onions &amp; garlic</div>
+                        </div>
+                        <div class="menu-item">
+                            <div class="item-top"><div class="item-name">13. BODRUM (V)</div><div class="item-price">5.80</div></div>
+                            <div class="item-desc">Fried aubergines mixed with yogurt &amp; garlic</div>
+                        </div>
+                        <div class="menu-item">
+                            <div class="item-top"><div class="item-name">14. WINE LEAVES (V)</div><div class="item-price">7.00</div></div>
+                            <div class="item-desc">Home made stuffed wine leaves with pine kernels, rice &amp; currants, mixed salad &amp; olive oil</div>
+                        </div>
+                        <div class="menu-item">
+                            <div class="item-top"><div class="item-name">15. COLD MEZE for 2 person</div><div class="item-price">19.50</div></div>
+                            <div class="item-desc">Humus, cacık, spinach tarator, tarama acılı ezme, şakşuka, Bodrum, served with bread</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">
+                        <h3>Hot Starters-Sıcak Mezeler</h3>
+                    </div>
+                    <div class="items">
+                        <div class="menu-item">
+                            <div class="item-top"><div class="item-name">16. GRILLED HALLOUMI (V)</div><div class="item-price">6.85</div></div>
+                            <div class="item-desc">Grilled halloumi cheese</div>
+                        </div>
+                        <div class="menu-item">
+                            <div class="item-top"><div class="item-name">17. FALAFEL (V)</div><div class="item-price">6.85</div></div>
+                            <div class="item-desc">Chickpeas, garlic, parsley, herbs served with humus</div>
+                        </div>
+                        <div class="menu-item">
+                            <div class="item-top"><div class="item-name">18. CALAMARI</div><div class="item-price">7.35</div></div>
+                            <div class="item-desc">Fried buttered calamari served with tartar sauce</div>
+                        </div>
+                        <div class="menu-item">
+                            <div class="item-top"><div class="item-name">19. SUCUK</div><div class="item-price">6.85</div></div>
+                            <div class="item-desc">Grilled Turkish sausage served with salad</div>
+                        </div>
+                        <div class="menu-item">
+                            <div class="item-top"><div class="item-name">20. SIGARA BÖREGI (V)</div><div class="item-price">7.35</div></div>
+                            <div class="item-desc">Filo pastry filled with feta cheese &amp; parsley</div>
+                        </div>
+                        <div class="menu-item">
+                            <div class="item-top"><div class="item-name">21. MUSKA BÖREGI</div><div class="item-price">7.35</div></div>
+                            <div class="item-desc">Filo pastry filled with potatoes</div>
+                        </div>
+                        <div class="menu-item">
+                            <div class="item-top"><div class="item-name">22. HOT MIX MEZE</div><div class="item-price">22.00</div></div>
+                            <div class="item-desc">Halloumi, falafel, calamari, sucuk, sigara böregi &amp; muska böregi</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="column">
+                <div class="card">
+                    <div class="card-title">
+                        <h3>Kebabs-Kebaplar</h3>
+                        <div class="sub">All served with rice or bulgur</div>
+                    </div>
+                    <div class="items">
+                        <div class="menu-item"><div class="item-top"><div class="item-name">23. ADANA</div><div class="item-price">18.00</div></div><div class="item-desc">Minced lamb grilled on skewers</div></div>
+                        <div class="menu-item"><div class="item-top"><div class="item-name">24. LAMB SHISH</div><div class="item-price">20.00</div></div><div class="item-desc">Marinated cubes of lamb grilled on skewers</div></div>
+                        <div class="menu-item"><div class="item-top"><div class="item-name">25. CHICKEN SHISH</div><div class="item-price">17.00</div></div><div class="item-desc">Marinated cubes of chicken grilled on skewers</div></div>
+                        <div class="menu-item"><div class="item-top"><div class="item-name">26. CHICKEN WINGS</div><div class="item-price">16.00</div></div><div class="item-desc">Chicken wings on skewers</div></div>
+                        <div class="menu-item"><div class="item-top"><div class="item-name">27. LAMB CHOPS 4 Pieces</div><div class="item-price">23.50</div></div><div class="item-desc">Grilled tender lamb chops seasoned on skewers</div></div>
+                        <div class="menu-item"><div class="item-top"><div class="item-name">28. SPARE RIBS</div><div class="item-price">21.00</div></div><div class="item-desc">Grilled lamb spare ribs on skewers</div></div>
+                        <div class="menu-item"><div class="item-top"><div class="item-name">29. LIVER SHISH</div><div class="item-price">16.00</div></div><div class="item-desc">Grilled lamb's liver on skewers</div></div>
+                        <div class="menu-item"><div class="item-top"><div class="item-name">30. LAMB BEYTI (NOT SARMA)</div><div class="item-price">18.00</div></div><div class="item-desc">Minced lamb seasoned with garlic, parsley &amp; herbs</div></div>
+                        <div class="menu-item"><div class="item-top"><div class="item-name">31. CHICKEN BEYTI (NOT SARMA)</div><div class="item-price">17.00</div></div><div class="item-desc">Minced chicken seasoned with garlic, parsley &amp; herbs</div></div>
+                        <div class="menu-item">
+                            <div class="item-top"><div class="item-name">32. ISKENDER KEBAB (ADANA, LAMB SHISH, CHICKEN SHISH OR LAMB BEYTI)</div><div class="item-price">21.50</div></div>
+                            <div class="item-desc">Prepared with yogurt, Butter, sauce, fresh tomato &amp; bread</div>
+                        </div>
+                        <div class="menu-item">
+                            <div class="item-top"><div class="item-name">33. MIXED GRILL FOR ONE</div><div class="item-price">26.50</div></div>
+                            <div class="item-desc">1 lamb shish, 1 chicken shish,1 Adana, 4pcs chicken wings</div>
+                        </div>
+                        <div class="menu-item">
+                            <div class="item-top"><div class="item-name">34. MIXED GRILL FOR TWO</div><div class="item-price">41.50</div></div>
+                            <div class="item-desc">1 lamb shish, 1 chicken shish, 1 Adana, 9pcs chicken wings, 4pcs lamb ribs. Served with rice, bulgur, humus, green salad &amp; bread</div>
+                        </div>
+                        <div class="menu-item">
+                            <div class="item-top"><div class="item-name">35. MIXED GRILL FOR THREE</div><div class="item-price">60.00</div></div>
+                            <div class="item-desc">2 lamb shish, 2 chicken shish, 2 Adana, 9 chicken wings, 4pcs lamb ribs, Served with rice, bulgur, humus, green salad &amp; bread</div>
+                        </div>
+                        <div class="menu-item">
+                            <div class="item-top"><div class="item-name">36. SOMINE SPECIAL FOUR / FIVE TO SHARE</div><div class="item-price">106.00</div></div>
+                            <div class="item-desc">2 lamb skewer, 2 chicken shish, 2 Adana, 1 chicken beyti, 9 chicken wings, 8pcs lamb ribs, 4pcs lamb chops Served with rice, bulgur, humus, cacık, green salad &amp; bread</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">
+                        <h3>Somine Special</h3>
+                    </div>
+                    <div class="items">
+                        <div class="menu-item">
+                            <div class="item-top"><div class="item-name">37. ICLI KÖFTE</div><div class="item-price">16.00</div></div>
+                            <div class="item-desc">Fine bulgur stuffed with the mixture of minced meat, onions with herbs</div>
+                        </div>
+                        <div class="menu-item">
+                            <div class="item-top"><div class="item-name">38. MANTI</div><div class="item-price">16.00</div></div>
+                            <div class="item-desc">Dumpling filled with the mixture of minced meat, onions &amp; herbs with garlic or non-garlic yogurt dressing with sauce on top</div>
+                        </div>
+                        <div class="menu-item">
+                            <div class="item-top"><div class="item-name">39. POTATOESLI MANTI (V)</div><div class="item-price">15.00</div></div>
+                            <div class="item-desc">Dumpling filled with mashed potatoes, onions &amp; herbs with garlic or non-garlic yogurt dressing with sauce on top</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">
+                        <h3>Fish-Balıklar</h3>
+                        <div class="sub">All served with salad</div>
+                    </div>
+                    <div class="items">
+                        <div class="menu-item"><div class="item-top"><div class="item-name">40. SEA BASS</div><div class="item-price">22.00</div></div><div class="item-desc">Sea bass in seasoning cooked over charcoal</div></div>
+                        <div class="menu-item"><div class="item-top"><div class="item-name">41. SEA BREAM</div><div class="item-price">22.00</div></div><div class="item-desc">Sea bream in seasoning cooked over charcoal</div></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">
+                        <h3>Vegetarian-Vejeteryan (V)</h3>
+                    </div>
+                    <div class="items">
+                        <div class="menu-item"><div class="item-top"><div class="item-name">42. FALAFEL (V)</div><div class="item-price">13.00</div></div><div class="item-desc">Chickpeas, garlic, parsley, spices served with humus &amp; salad</div></div>
+                        <div class="menu-item"><div class="item-top"><div class="item-name">43. HALLOUMI (V)</div><div class="item-price">13.50</div></div><div class="item-desc">Grilled halloumi served with humus &amp; salad</div></div>
+                        <div class="menu-item"><div class="item-top"><div class="item-name">44. MOUSSAKA (V)</div><div class="item-price">15.00</div></div><div class="item-desc">Fried aubergine with potatoes, carrot, courgette, green peas with bechamel sauce topped with melted cheddar</div></div>
+                        <div class="menu-item"><div class="item-top"><div class="item-name">45. FALAFEL &amp; HALLOUMI MIX (V)</div><div class="item-price">15.00</div></div></div>
+                    </div>
+                    <div class="notice">
+                        <p>Different vegetarian stews available every day, please ask a member of staff.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="column">
+                <div class="card">
+                    <div class="card-title">
+                        <h3>Salads-Salatalar</h3>
+                    </div>
+                    <div class="items">
+                        <div class="menu-item"><div class="item-top"><div class="item-name">46. CHEESE SALAD (V)</div><div class="item-price">7.00</div></div><div class="item-desc">Tomatoes, cucumber, onions, parsley with dressing &amp; feta cheese</div></div>
+                        <div class="menu-item"><div class="item-top"><div class="item-name">47. GREEN SALAD (V)</div><div class="item-price">5.00</div></div><div class="item-desc">Seasonal mixed green leaves with dressing</div></div>
+                        <div class="menu-item"><div class="item-top"><div class="item-name">48. SHEPHERDS SALAD (V)</div><div class="item-price">7.00</div></div><div class="item-desc">Diced tomatoes, cucumber, onions &amp; parsley</div></div>
+                        <div class="menu-item"><div class="item-top"><div class="item-name">49. GRILLED ONIONS (V)</div><div class="item-price">5.00</div></div><div class="item-desc">Grilled onions with dressing</div></div>
+                        <div class="menu-item"><div class="item-top"><div class="item-name">50. CHICKEN SALAD</div><div class="item-price">16.00</div></div><div class="item-desc">Mixed salad topped with grilled chicken breast in small cubes</div></div>
+                        <div class="menu-item"><div class="item-top"><div class="item-name">51. GRILLED HALLOUMI GREEN SALAD (V)</div><div class="item-price">12.50</div></div><div class="item-desc">Mixed salad topped with grilled halloumi cheese</div></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">
+                        <h3>Side Dishes</h3>
+                    </div>
+                    <div class="items">
+                        <div class="menu-item"><div class="item-top"><div class="item-name">52. CHIPS</div><div class="item-price">4.50</div></div></div>
+                        <div class="menu-item"><div class="item-top"><div class="item-name">53. PLAIN YOGURT</div><div class="item-price">3.00</div></div></div>
+                        <div class="menu-item"><div class="item-top"><div class="item-name">54. FETA CHEESE</div><div class="item-price">4.00</div></div></div>
+                        <div class="menu-item"><div class="item-top"><div class="item-name">55. SUCUKLU YUMURTA</div><div class="item-price">7.00</div></div></div>
+                        <div class="menu-item"><div class="item-top"><div class="item-name">56. RICE / KUSKUS</div><div class="item-price">3.00</div></div></div>
+                        <div class="menu-item"><div class="item-top"><div class="item-name">57. PICKLE</div><div class="item-price">3.00</div></div></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">
+                        <h3>Desserts - Tatlı</h3>
+                    </div>
+                    <div class="items">
+                        <div class="menu-item"><div class="item-top"><div class="item-name">58. RICE PUDING - SÜTLAÇ</div><div class="item-price">6.00</div></div></div>
+                        <div class="menu-item"><div class="item-top"><div class="item-name">59. SARAY BURMASI</div><div class="item-price">6.00</div></div><div class="item-desc">Filo pastry filled with pistachios, then wrapped and soaked in syrup</div></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">
+                        <h3>Soft Drinks-Alkolsüz İçecekler</h3>
+                    </div>
+                    <div class="items">
+                        <div class="menu-item"><div class="item-top"><div class="item-name">60. COKE</div><div class="item-price">2.80</div></div></div>
+                        <div class="menu-item"><div class="item-top"><div class="item-name">61. DIET COKE</div><div class="item-price">2.80</div></div></div>
+                        <div class="menu-item"><div class="item-top"><div class="item-name">62. COKE ZERO</div><div class="item-price">2.80</div></div></div>
+                        <div class="menu-item"><div class="item-top"><div class="item-name">63. FANTA</div><div class="item-price">2.80</div></div></div>
+                        <div class="menu-item"><div class="item-top"><div class="item-name">64. SPRITE</div><div class="item-price">2.80</div></div></div>
+                        <div class="menu-item"><div class="item-top"><div class="item-name">65. SPARKLING WATER</div><div class="item-price">2.80</div></div></div>
+                        <div class="menu-item"><div class="item-top"><div class="item-name">66. TURNIP DRINK - SALGAM</div><div class="item-price">2.80</div></div></div>
+                        <div class="menu-item"><div class="item-top"><div class="item-name">67. YOGHURT DRINK - AYRAN</div><div class="item-price">2.00</div></div></div>
+                        <div class="menu-item"><div class="item-top"><div class="item-name">68. WATER (50CL) - SU</div><div class="item-price">2.80</div></div></div>
+                        <div class="menu-item"><div class="item-top"><div class="item-name">69. LARGE WATER (1LT) - BÜYÜK SU</div><div class="item-price">5.00</div></div></div>
+                        <div class="menu-item"><div class="item-top"><div class="item-name">70. SPARKLING WATER (1LT)- MADEN SUYU</div><div class="item-price">5.00</div></div></div>
+                        <div class="menu-item"><div class="item-top"><div class="item-name">71. ORANGE JUICE - PORTAKAL SUYU</div><div class="item-price">2.00</div></div></div>
+                        <div class="menu-item"><div class="item-top"><div class="item-name">72. APPLE JUICE - ELMA SUYU</div><div class="item-price">2.00</div></div></div>
+                        <div class="menu-item"><div class="item-top"><div class="item-name">73. CHERRY JUICE - VISNE SUYU</div><div class="item-price">2.00</div></div></div>
+                        <div class="menu-item"><div class="item-top"><div class="item-name">74. PEACH JUICE - SEFTALI SUYU</div><div class="item-price">2.00</div></div></div>
+                        <div class="menu-item"><div class="item-top"><div class="item-name">75. APRICOT JUICE - KAYISI SUYU</div><div class="item-price">2.00</div></div></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">
+                        <h3>Hot Drinks-Sıcak İçecekler</h3>
+                    </div>
+                    <div class="items">
+                        <div class="menu-item"><div class="item-top"><div class="item-name">76. TURKISH TEA - TÜRK ÇAYI</div><div class="item-price">2.50</div></div></div>
+                        <div class="menu-item"><div class="item-top"><div class="item-name">77. TURKISH COFFEE - TÜRK KAHVESI</div><div class="item-price">3.00</div></div></div>
+                        <div class="menu-item"><div class="item-top"><div class="item-name">78. COFFEE - KAHVE</div><div class="item-price">2.50</div></div></div>
+                        <div class="menu-item"><div class="item-top"><div class="item-name">79. GREEN TEA - YESIL ÇAY</div><div class="item-price">2.50</div></div></div>
+                        <div class="menu-item"><div class="item-top"><div class="item-name">80. APPLE TEA - ELMA ÇAYI</div><div class="item-price">2.50</div></div></div>
+                        <div class="menu-item"><div class="item-top"><div class="item-name">81. MINT TEA - NANE ÇAYI</div><div class="item-price">2.50</div></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-section" id="details">
+        <div class="contact-wrap">
+            <div class="card">
+                <div class="card-title">
+                    <h3>Contact Information</h3>
+                </div>
+                <div class="contact-card">
+                    <p><strong>ALLERGY NOTICE</strong></p>
+                    <p>Please inform a member of staff if you have any food allergy or any dietary requirements</p>
+                    <p>131 Kingsland High Street</p>
+                    <p>London. E82PB</p>
+                    <p>Tel: 02072547384</p>
+                    <p>www.somine-restaurant.co.uk</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="footer-mark">
+        <img class="logo-lockup footer-logo" src="./logo.png" alt="Şömine Restaurant logo">
+    </div>
+</body>
+</html>
